@@ -11,13 +11,16 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 @Component
 public class DiscardVerticle extends AbstractVerticle {
-    @Value("${discard.port}")
-    private static int port;
+    private final int port;
+    private final String host;
 
-    @Value("${discard.host}")
-    private static String host;
+    public DiscardVerticle(@Value("${discard.port}") int port, @Value("${discard.host}") String host) {
+        this.port = port;
+        this.host = host;
+    }
     @Override
     public void start() throws Exception {
+        log.info("HERE: {} {}", host, port);
         var options = new NetServerOptions()
                 .setPort(port)
                 .setHost(host);
