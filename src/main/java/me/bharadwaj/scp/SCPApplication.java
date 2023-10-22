@@ -1,31 +1,31 @@
 package me.bharadwaj.scp;
 
-import me.bharadwaj.scp.app.DiscardVerticle;
 import io.vertx.core.Vertx;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import me.bharadwaj.scp.app.DiscardVerticle;
+import me.bharadwaj.scp.verticles.helpers.DeployHelper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @Slf4j
 @SpringBootApplication
 public class SCPApplication {
 
+	private final DiscardVerticle discardVerticle;
+
+	public SCPApplication(DiscardVerticle discardVerticle) {
+		this.discardVerticle = discardVerticle;
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(SCPApplication.class, args);
 	}
 
-	@Bean
-	public Vertx verticleLauncher(DiscardVerticle mainVerticle) {
+	@PostConstruct
+	public void verticleLauncher() {
 		var vertx = Vertx.vertx();
-		vertx.deployVerticle(mainVerticle)
-				.onFailure(failedEvent -> {
-					log.error("error: ", failedEvent);
-				})
-				.onSuccess(successEvent -> {
-					log.info("Launched MainVerticle: {}", successEvent);
-				});
-		return vertx;
+		DeployHelper.deployVerticle(vertx, discardVerticle);
 	}
 
 }
