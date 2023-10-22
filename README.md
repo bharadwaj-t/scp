@@ -3,7 +3,7 @@ A Simple Chat Program Backend (...Just not yet)
 
 ## Status
 Project is in its infancy, and currently Implements the following protocols:
-- [RFC 863](https://www.rfc-editor.org/rfc/rfc863) (Only TCP)
+- [RFC 863](https://www.rfc-editor.org/rfc/rfc863)
 
 ## Building
 You need the following:

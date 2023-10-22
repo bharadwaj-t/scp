@@ -1,6 +1,6 @@
 package me.bharadwaj.scp;
 
-import me.bharadwaj.scp.config.MainVerticle;
+import me.bharadwaj.scp.app.DiscardVerticle;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +16,7 @@ public class SCPApplication {
 	}
 
 	@Bean
-	public Vertx verticleLauncher(MainVerticle mainVerticle) {
+	public Vertx verticleLauncher(DiscardVerticle mainVerticle) {
 		var vertx = Vertx.vertx();
 		vertx.deployVerticle(mainVerticle)
 				.onFailure(failedEvent -> {
