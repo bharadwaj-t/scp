@@ -3,6 +3,7 @@ package me.bharadwaj.scp.verticles;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.net.NetServerOptions;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -10,10 +11,11 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 @Component
 public class DiscardVerticle extends AbstractVerticle {
-    // RFC863 requires port to be "9", but this requires the application to be run with
-    // superuser privileges, so here's a random & easy-to-remember port instead.
-    private static int port = 4321;
-    private static String host = "localhost";
+    @Value("${discard.port}")
+    private static int port;
+
+    @Value("${discard.host}")
+    private static String host;
     @Override
     public void start() throws Exception {
         var options = new NetServerOptions()
